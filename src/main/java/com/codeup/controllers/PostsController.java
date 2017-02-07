@@ -18,8 +18,8 @@ public class PostsController {
     }
     @GetMapping("/posts/{id}")
     @ResponseBody
-    public String postsid(){
-        return "<h1>view an individual post!!!!</h1>";
+    public String postsid(@PathVariable long id){
+        return "<h1>view an individual post with ID : "+id+"!!!!</h1>";
     }
     @GetMapping("/posts/create")
     @ResponseBody
@@ -29,6 +29,7 @@ public class PostsController {
     @PostMapping("/posts/create")
     @ResponseBody
     public String postscreate(){
+
         return "<h1>create a new post!!!!</h1>";
     }
 
