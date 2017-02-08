@@ -15,7 +15,7 @@ import java.util.Random;
 public class RollDiceController {
     @GetMapping("/roll-dice")
     public String roll(){
-    return "rolling";
+    return "rollDiceexercise/rolling";
     }
     @GetMapping("/roll-dice/{n}")
     public String roll(@PathVariable int n, Model model){
@@ -31,7 +31,7 @@ public class RollDiceController {
         model.addAttribute("choice",result);
         model.addAttribute("guess",n);
         model.addAttribute("result",randomNumber);
-        return "rollingResult";
+        return "rollDiceexercise/rollingResult";
 
     }
 }
