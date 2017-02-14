@@ -1,25 +1,40 @@
 package com.codeup.models;
 
+import javax.persistence.*;
+
 /**
  * Created by abdelmoughit on 2/8/2017.
  */
+@Entity
+@Table(name="posts")
 public class Post{
-    public int getId() {
-        return id;
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false, length = 100)
+    private String title;
+
+    @Column(nullable = false)
+    private String description;
+
+    @ManyToOne
+    @JoinColumn (name="user_id") //define at the table level
+    UserPost user;
+
+    public UserPost getUser(){
+        return user;
+    }
+    public void setUser(UserPost post){
+        this.user=user;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public int id;
-    public String title;
-    public String body;
-
-
-    public Post(String title,String body) {
+    public Post(String title,String description) {
         this.title=title;
-        this.body=body;
+        this.description=description;
     }
     public Post() {
     }
@@ -33,13 +48,22 @@ public class Post{
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setDescription(String description) {
+        this.description = description;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 
 
 

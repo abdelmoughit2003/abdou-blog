@@ -1,4 +1,4 @@
-package com.codeup.mysercices;
+package com.codeup.myservices;
 import com.codeup.models.Post;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.List;
 @Service("postSvc")
 public class PostSvc {
     private List<Post> posts = new ArrayList<>();
+
 
     public PostSvc() {
         //This run by the time the class is created

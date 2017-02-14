@@ -1,0 +1,17 @@
+.footercolor{
+    background-color: aqua;
+}
+.move {
+    margin-left: 70%;
+}
+
+.blog{
+    background-image: url("https://www.odoo.com/apps/modules/8.0/portal_blog/blog.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.im{
+    background-image: url("http://quotesideas.com/wp-content/uploads/2015/02/motivational-wallpapers-14.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}

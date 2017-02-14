@@ -1,14 +1,12 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header">
+<head th:fragment="header(pageTitle)">
     <meta charset="UTF-8"/>
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../../custom.css"/>
+    <title th:text="${pageTitle}"></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous"/>
 </head>
 <body>
-<div >
-    This is the footer content
-    <h1>This is the header</h1>
-</div>
 </body>
 </html>
