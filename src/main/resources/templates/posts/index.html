@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" />
+
     <style>
         table, th, td {
             border: 1px solid black;
@@ -16,6 +20,7 @@
     </style>
 </head>
 <body>
+<nav th:include="fragments/navbar :: navbar"></nav>
 <h1>All posts</h1>
 <table id="customers" >
     <tr>
@@ -24,15 +29,23 @@
         <th><h1>Description</h1></th>
         <th><h1>Post</h1></th>
     </tr>
-<div th:each="post: ${posts}">
+<!--<div th:each="post: ${posts}">-->
 
-    <tr>
-    <td><p>Created by :<span th:text="${post.user.username}"></span></p></td>
-            <td><h2 th:text="${post.title}"></h2></td>
-            <td><h3 th:text="${post.description}"></h3></td>
-            <td><h4><a th:href="'/posts/' + ${post.id}">View post</a></h4></td>
-    </tr>
-</div>
+    <!--<tr>-->
+    <!--<td><p>Created by :<span th:text="${post.user.username}"></span></p></td>-->
+            <!--<td><h2 th:text="${post.title}"></h2></td>-->
+            <!--<td><h3 th:text="${post.description}"></h3></td>-->
+            <!--<td><h4><a th:href="'/posts/' + ${post.id}">View post</a></h4></td>-->
+    <!--</tr>-->
+<!--</div>-->
+    <div id="load-posts"></div>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous">
+
+    </script>
+    <script src="/scripts/posts-list.js"></script>
 </table>
 </body>
 </html>

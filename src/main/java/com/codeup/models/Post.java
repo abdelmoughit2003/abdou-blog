@@ -1,6 +1,10 @@
 package com.codeup.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  * Created by abdelmoughit on 2/8/2017.
@@ -15,19 +19,32 @@ public class Post{
     private long id;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "Title cannot be empty")
     private String title;
 
     @Column(nullable = false)
+    @NotBlank(message = "Description cannot be empty")
+    @Size(min = 5, message = "Description must have at least 5 characters")
     private String description;
 
-    @ManyToOne
-    @JoinColumn (name="user_id") //define at the table level
-    UserPost user;
+    @Column
+    private String image;
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-    public UserPost getUser(){
+
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn (name="user_id") //define at the table level
+    private User user;
+    public User getUser(){
         return user;
     }
-    public void setUser(UserPost post){
+    public void setUser(User user){
         this.user=user;
     }
 

@@ -8,6 +8,8 @@
 </head>
 <body class="blog">
 <nav th:include="fragments/navbar :: navbar"></nav>
+
+
 <div class="container">
     <h1 style="margin-top: 50px;">Edit Post</h1>
     <form th:action="@{'/posts/' + ${post.id} + '/edit'}" method="POST" th:object="${post}">

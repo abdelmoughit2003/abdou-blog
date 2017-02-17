@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<h2 th:text="${user.username}"></h2>
+<h3 th:text="${user.email}"></h3>
+
+
+<div th:if ="${showEditControls}">
+edit and delete bb
+</div>
+<div sec:authorize="isAuthenticated()">
+Logged user : <span sec:authentication="name"></span> <br/>
+    Existing Roles: <span sec:authentication="principal.authorities"></span> <br/>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div>yes</div>
+    </div>
+    <div sec:authorize="hasRole('ROLE_USER')">
+        <div>yes</div>
+    </div>
+    <div sec:authorize="hasRole('ROLE_GUEST')">
+        <div>yes</div>
+</div>
+
+</div>
+Posted by
+<!--<a th:href="${'/users/'+ post.user.id}" th :text="${post.user.usernsme}"></a>-->
+
+</body>
+</html>

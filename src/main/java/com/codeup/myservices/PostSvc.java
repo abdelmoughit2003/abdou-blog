@@ -18,6 +18,7 @@ public class PostSvc {
     }
 
     public List<Post> findAll() {
+
         return posts;
     }
 

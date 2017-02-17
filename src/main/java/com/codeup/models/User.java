@@ -1,6 +1,12 @@
 package com.codeup.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -8,32 +14,44 @@ import java.util.List;
  */
 @Entity
 @Table(name="post_users")
+public class User {
 
-public class UserPost {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  long id;
-  @Column(nullable = false)
-  String username;
+  private long id;
 
   @Column(nullable = false)
+  @NotBlank(message = "Enter a username")
+  private String username;
 
-  String email;
   @Column(nullable = false)
-  String password;
+  @NotBlank(message = "Enter a valid email")
 
-  @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
-  List<Post> posts;//these are all the posts created by the user
-  public UserPost(String username, String email, String password) {
+  @Email(message = "Enter a valid email address")
+  private String email;
+
+  @Column(nullable = false)
+  @NotBlank(message = "Enter a username")
+  @Size(min =8, message="Your password must have at least 8 charachters")
+  @JsonIgnore
+  private String password;
+
+  @OneToMany(mappedBy = "user")
+  @JsonBackReference
+  private List<Post> posts;//these are all the posts created by the user
+
+  public User() {
+
+  }
+  public User(String username, String email, String password) {
     this.username = username;
     this.email = email;
     this.password = password;
   }
 
 
-  public UserPost() {
-  }
-  public UserPost(UserPost user) {
+
+  public User(User user) {
     id = user.id;
     username = user.username;
     password = user.password;

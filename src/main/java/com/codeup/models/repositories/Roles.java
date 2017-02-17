@@ -12,6 +12,6 @@ import java.util.List;
  */
 @Repository
 public interface Roles extends CrudRepository<UserRole, Long> {
-    @Query("SELECT ur.role FROM UserRole ur, UserPost u WHERE u.username=?1 AND ur.userId = u.id")
-    public List<String> ofUserWith(String username);
+    @Query("SELECT ur.role FROM UserRole ur, User u WHERE u.username=?1 AND ur.userId = u.id")
+     List<String> ofUserWith(String username);
 }

@@ -1,5 +1,5 @@
 package com.codeup.myservices;
-import com.codeup.models.UserPost;
+import com.codeup.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,10 +9,10 @@ import java.util.List;
 /**
  *
  */
-public class UserWithRoles extends UserPost implements UserDetails {
+public class UserWithRoles extends User implements UserDetails {
     private List<String> userRoles;
 
-    public UserWithRoles(UserPost user, List<String> userRoles) {
+    public UserWithRoles(User user, List<String> userRoles) {
         super(user);
         this.userRoles = userRoles;
     }

@@ -8,6 +8,7 @@
 
 <h2 th:text="${post.title}"></h2>
 <h3 th:text="${post.description}"></h3>
+<img th:src="${'/uploads/'+ post.image}"/>
 <p>The email is :<span th:text="${post.user.email}"></span></p>
 
 Posted by

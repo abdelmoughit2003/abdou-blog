@@ -1,23 +1,23 @@
 package com.codeup.controllers;
 
 import com.codeup.models.Post;
-import com.codeup.models.UserPost;
 import com.codeup.models.repositories.Posts;
-import com.codeup.myservices.PostSvc;
-import org.apache.catalina.User;
+import com.codeup.myservices.UserSvc;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,6 +25,9 @@ import java.util.List;
  */
 @Controller
 public class PostsController {
+
+
+
 ////    @GetMapping("/posts")
 //    public String posts(Model model){
 //// array list with several post objects
@@ -65,15 +68,23 @@ public class PostsController {
     //Constructor injection
     @Autowired
     Posts postsDao;
+    @Value("${uploads}")
+    private String uploadsPath;
+    @Autowired
+    UserSvc userSvc;
     @GetMapping("/posts")
     public String viewAllposts(Model m){
-        m.addAttribute("posts", postsDao.findAll());
+        m.addAttribute("posts", Collections.emptyList());
         //another way to to the same thing without using variables
         //m.addAttribute("posts", postSvc.findAll());
-        for(Post post:postsDao.findWhereTitleLike("%abdou%")){
-            System.out.println(post.getTitle());
-        }
+//        for(Post post:postsDao.findWhereTitleLike("%abdou%")){
+//            System.out.println(post.getTitle());
+//        }
         return "posts/index";
+    }
+    @GetMapping("/posts.json")
+    public @ResponseBody List<Post> retrieveAllAds(){
+        return (List<Post>) postsDao.findAll();
     }
     @GetMapping("/")
     public String firstPage(){
@@ -118,16 +129,35 @@ public class PostsController {
     public String create(
 //            @RequestParam(name = "title") String title,
 //            @RequestParam(name = "description") String description
-
-
-            @ModelAttribute Post post
-
+//it calls model attribute first
+            @Valid Post post,
+            Errors validation,
+            Model model,
+            @RequestParam(name = "image_file") MultipartFile uploadedFile
     )
     {
+        if(validation.hasErrors()){
+
+            model.addAttribute("errors",validation);
+            model.addAttribute("post",post);
+            return "posts/create";
+        }
+        String filename= uploadedFile.getOriginalFilename();
+        String filepath = Paths.get(uploadsPath,filename).toString();
+        File destinationFile = new File(filepath);
+
+        try{
+            uploadedFile.transferTo(destinationFile);//it will move the file in this step
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+//        User user =(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(userSvc.loggedInUser());
+        post.setImage(filename);
         postsDao.save(post);
-         return "posts/create";
+         return "redirect:/posts";
     }
-
-
 
 }

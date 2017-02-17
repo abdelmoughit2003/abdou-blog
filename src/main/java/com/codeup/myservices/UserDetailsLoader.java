@@ -1,7 +1,7 @@
 
 
 package com.codeup.myservices;
-        import com.codeup.models.UserPost;
+        import com.codeup.models.User;
         import com.codeup.models.repositories.Roles;
         import com.codeup.models.repositories.Users;
         import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class UserDetailsLoader implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserPost user = users.findByUsername(username);
+        User user = users.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("No user found for " + username);
         }
